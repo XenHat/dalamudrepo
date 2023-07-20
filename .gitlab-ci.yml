@@ -25,7 +25,5 @@ build-job:
   stage: build
   script:
     - echo "Compiling the code..."
-    - pwd
-    - ls
-    - bash run.bash
+    - bash ci.bash
     - echo "Compile complete."
