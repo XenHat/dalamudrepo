@@ -29,7 +29,7 @@ names=(
 idx=0
 for repo in "${repos[@]}"; do
 	echo "$repo"
-	curl -o "sources/${names[$idx]}.json" -z "sources/${names[$idx]}.json" "$repo"
+	wget -O "sources/${names[$idx]}.json" -N "$repo"
 	((idx++))
 done
 rm repo.json
