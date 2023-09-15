@@ -19,6 +19,7 @@
 stages:
   # List of stages for jobs, and their order of execution
   - build
+  - deploy
 
 build-job:
   # This job runs in the build stage, which runs first.
@@ -27,3 +28,7 @@ build-job:
     - echo "Compiling the code..."
     - bash ci.bash
     - echo "Compile complete."
+
+  stage: deploy
+  script:
+    - chmod +x ./commit-changes.sh; ./commit-changes.sh "GitLag CI" "noreply@acme.com" "Repos refresh"
