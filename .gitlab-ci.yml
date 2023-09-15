@@ -33,6 +33,9 @@ build-job:
     - cd "${CI_COMMIT_SHA}"
     - ls -a
     # Add all generated files to Git
+    
+    - git rm *.tmp.json
+    - mv new_repo.json repo.json
     - git add .
     - git status
     - |-
