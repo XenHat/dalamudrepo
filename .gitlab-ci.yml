@@ -10,6 +10,8 @@ build-job:
   script:
     - apt-get -qq update
     - apt-get install -y jq
+    - which jq
+    - command -v jq
   extends: .git:push
 
 .git:push:
