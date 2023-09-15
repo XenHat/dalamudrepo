@@ -1,5 +1,8 @@
-.job-tmpl:
-  image: alpine:latest
+image: node:latest
+
+before_script:
+  - apt-get -qq update
+  - apt-get install -y jq
 
 stages:
   # List of stages for jobs, and their order of execution
