@@ -43,7 +43,7 @@ build-job:
         git status
 
         # Commit all changes
-        git commit -m "${COMMIT_MESSAGE}"
+        git commit -m "Automated update"
 
         # Update the repository and make sure to skip the pipeline create for this commit
         git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
