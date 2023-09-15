@@ -17,7 +17,6 @@ build-job:
     - wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp.json
     - jq -s 'add' ./*.tmp.json > new_repo.json
-    - mkdir "${CI_COMMIT_SHA}"
     - cp -v *.json "${CI_COMMIT_SHA}"/
   extends: .git:push
 
