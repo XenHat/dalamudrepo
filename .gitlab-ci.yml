@@ -20,7 +20,7 @@ build-job:
       wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' | jq -r tostring > actucnw.tmp.json
     - |- 
       for file in ./*.tmp.json; do
-        cat $file | jq -s 'flatten(1)' | jq -s > new_repo.json
+        cat $file | jq -s 'flatten(1)' | jq -s >> new_repo.json
       done
     - echo "Checking for differences"; diff repo.json new_repo.json
     - echo "overwriting repo JSON with new file"
