@@ -23,6 +23,7 @@ build-job:
       done
     - echo "Checking for differences"; diff repo.json new_repo.json
     - echo "overwriting repo JSON with new file"
+    - mkdir "${CI_COMMIT_SHA}"
     - cp -v *.json "${CI_COMMIT_SHA}"/
   extends: .git:push
 
@@ -37,6 +38,7 @@ build-job:
   after_script:
     # cd into the new cleanly created repo for pushing purposes
     - cd "${CI_COMMIT_SHA}"
+    - ls -a
     # Add all generated files to Git
     - git add .
     - git status
