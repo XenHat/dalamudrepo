@@ -22,9 +22,6 @@ deploy:
     - bash ./ci.bash
 .git:push:
   after_script:
-    # Go to the new directory
-    - cd "${CI_COMMIT_SHA}"
-
     # Add all generated files to Git
     - git add .
 
