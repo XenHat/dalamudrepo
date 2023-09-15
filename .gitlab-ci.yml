@@ -20,21 +20,25 @@ stages:
   # List of stages for jobs, and their order of execution
   - build
   - deploy
-
 build-job:
   # This job runs in the build stage, which runs first.
   stage: build
+
+  before_script:
+    - git remote remove origin
+    - git remote add origin https://oauth2:$ACCESS_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git
   script:
+    - git checkout main
+    - git pull
     - echo "Compiling the code..."
     - bash ./ci.bash
     - echo "Compile complete."
+    - git config --global user.email "${GITLAB_USER_EMAIL}"
+    - git config --global user.name "${GITLAB_USER_NAME}"    
     - |     
       CHANGES=$(git status --porcelain | wc -l)
       if [[ "${CHANGES}" -gt 0 ]]; then
-        git config user.email "commits@xenh.at"
-        git config user.name "ci-bot"
-        git remote add gitlab_origin https://oauth2:$ACCESS_TOKEN@gitlab.com/XenHat/dalamudrepo.git
         git add repo.json
         git commit -m "push back from pipeline"
-        git push gitlab_origin HEAD:main -o ci.skip # prevent triggering pipeline againrefresh"
+        git push --set-upstream origin -o ci.skip  # prevent triggering pipeline againrefresh"
       fi
