@@ -28,8 +28,6 @@ build-job:
     - echo "Compiling the code..."
     - bash ./ci.bash
     - echo "Compile complete."
-
-deploy-job:
   stage: deploy
   script:
     - git config user.email "commits@xenh.at"
