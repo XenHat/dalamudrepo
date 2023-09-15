@@ -3,23 +3,11 @@ image: node:latest
 stages:
   # List of stages for jobs, and their order of execution
   - build
-  - deploy
 build-job:
   # This job runs in the build stage, which runs first.
   stage: build
   script:
     - which jq || apt-get -qq update && apt-get install -y jq
-  extends: .git:push
-
-.git:push:
-  before_script:
-    # Clone the repository via HTTPS inside a new directory
-    - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
-
-    # Set the displayed user with the commits that are about to be made
-    - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
-    - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
-  after_script:
     # cd into the new cleanly created repo for pushing purposes
     - cd "${CI_COMMIT_SHA}"
     - ls -al
@@ -36,9 +24,18 @@ build-job:
       done
     - echo "Checking for differences"; diff repo.json new_repo.json
     - echo "overwriting repo JSON with new file"
-    #- mv -v new_repo.json repo.json
-    #- rm -v tmp*.json
-    - ls -al
+  extends: .git:push
+
+.git:push:
+  before_script:
+    # Clone the repository via HTTPS inside a new directory
+    - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
+
+    # Set the displayed user with the commits that are about to be made
+    - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
+    - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
+  after_script:
+
     # Add all generated files to Git
     - git add .
     - git status
