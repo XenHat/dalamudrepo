@@ -8,8 +8,7 @@ build-job:
   stage: build
   script:
     - which jq || apt-get -qq update && apt-get install -y jq
-    # cd into the new cleanly created repo for pushing purposes
-    - cd "${CI_COMMIT_SHA}"
+
     - ls -al
     # - echo "Compiling the code..."; bash ./ci.bash && echo "Compile complete."
     - |-
@@ -24,6 +23,7 @@ build-job:
       done
     - echo "Checking for differences"; diff repo.json new_repo.json
     - echo "overwriting repo JSON with new file"
+    - cp -v *.json "${CI_COMMIT_SHA}"/
   extends: .git:push
 
 .git:push:
@@ -35,7 +35,8 @@ build-job:
     - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
     - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
   after_script:
-
+    # cd into the new cleanly created repo for pushing purposes
+    - cd "${CI_COMMIT_SHA}"
     # Add all generated files to Git
     - git add .
     - git status
