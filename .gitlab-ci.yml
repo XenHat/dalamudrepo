@@ -23,9 +23,14 @@ build-job:
   after_script:
     # cd into the new cleanly created repo for pushing purposes
     - cd "${CI_COMMIT_SHA}"
-    - echo "Compiling the code..."
-    - bash ./ci.bash
-    - echo "Compile complete."
+    - ls -al
+    - echo "Compiling the code..."; bash ./ci.bash && echo "Compile complete."
+    - jq <tmp.json '.[]' | jq -s | tee new_repo.json
+    - echo "Checking for differences"; diff repo.json new_repo.json
+    - echo "overwriting repo JSON with new file"
+    - mv -v new_repo.json repo.json
+    - rm -v tmp*.json
+    - ls -al
     # Add all generated files to Git
     - git add .
     - |-
