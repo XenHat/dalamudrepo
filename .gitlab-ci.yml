@@ -34,14 +34,8 @@ build-job:
       for file in ./*.tmp; do
         cat $file | jq -s 'flatten(1)' | jq -s > new_repo.json
       done
-    - echo "Checking for differences"; diff repo.json new_repo.json
-    #- echo "overwriting repo JSON with new file"
-    #- mv -v new_repo.json repo.json
-    #- rm -v tmp*.json
-    - ls -l
-    # Add all generated files to Git
     - git add .
-    - git status
+    - git diff
     - |-
       # Check if we have modifications to commit
       CHANGES=$(git status --porcelain | wc -l)
