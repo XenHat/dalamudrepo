@@ -3,12 +3,27 @@ image: node:latest
 stages:
   # List of stages for jobs, and their order of execution
   - build
-  - deploy
 build-job:
   # This job runs in the build stage, which runs first.
   stage: build
   script:
     - which jq || apt-get -qq update && apt-get install -y jq
+    # cd into the new cleanly created repo for pushing purposes
+    - cd "${CI_COMMIT_SHA}"
+    - ls -al
+    # - echo "Compiling the code..."; bash ./ci.bash && echo "Compile complete."
+    - |-
+      wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json' | jq -r tostring > sfxiv.tmp.json
+      wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json' | jq -r tostring > leonblade.tmp.json
+      wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' | jq -r tostring > aidaenna.tmp.json
+      wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' | jq -r tostring > nightmarexiv.tmp.json
+      wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' | jq -r tostring > actucnw.tmp.json
+    - |- 
+      for file in ./*.tmp.json; do
+        cat $file | jq -s 'flatten(1)' | jq -s > new_repo.json
+      done
+    - echo "Checking for differences"; diff repo.json new_repo.json
+    - echo "overwriting repo JSON with new file"
   extends: .git:push
 
 .git:push:
@@ -20,22 +35,10 @@ build-job:
     - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
     - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
   after_script:
-    # cd into the new cleanly created repo for pushing purposes
-    - cd "${CI_COMMIT_SHA}"
-    - ls -al
-    # - echo "Compiling the code..."; bash ./ci.bash && echo "Compile complete."
-    - |-
-      wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json' > sfxiv.tmp;
-      wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json' > leonblade.tmp;
-      wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp;
-      wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp;
-      wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp
-    - |- 
-      for file in ./*.tmp; do
-        cat $file | jq -s 'flatten(1)' | jq -s > new_repo.json
-      done
+
+    # Add all generated files to Git
     - git add .
-    - git diff
+    - git status
     - |-
       # Check if we have modifications to commit
       CHANGES=$(git status --porcelain | wc -l)
