@@ -30,9 +30,13 @@ build-job:
     - echo "Compile complete."
   stage: deploy
   script:
-    - git config user.email "commits@xenh.at"
-    - git config user.name "ci-bot"
-    - git remote add gitlab_origin https://oauth2:$ACCESS_TOKEN@gitlab.com/path-to-project.git
-    - git add .
-    - git commit -m "push back from pipeline"
-    - git push gitlab_origin HEAD:main -o ci.skip # prevent triggering pipeline againrefresh"
+     - |     
+      CHANGES=$(git status --porcelain | wc -l)
+      if [[ "${CHANGES}" -gt 0 ]]; then
+        git config user.email "commits@xenh.at"
+        git config user.name "ci-bot"
+        git remote add gitlab_origin https://oauth2:$ACCESS_TOKEN@gitlab.com/XenHat/dalamudrepo.git
+        git add repo.json
+        git commit -m "push back from pipeline"
+        git push gitlab_origin HEAD:main -o ci.skip # prevent triggering pipeline againrefresh"
+      fi
