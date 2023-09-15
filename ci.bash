@@ -1,3 +1,4 @@
+command -v jq || exit 1
 {
 	wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'
 	wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json'
