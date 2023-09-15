@@ -8,10 +8,7 @@ build-job:
   # This job runs in the build stage, which runs first.
   stage: build
   script:
-    - apt-get -qq update
-    - apt-get install -y jq
-    - which jq
-    - command -v jq
+    - which jq || apt-get -qq update && apt-get install -y jq
   extends: .git:push
 
 .git:push:
@@ -44,6 +41,7 @@ build-job:
     - ls -al
     # Add all generated files to Git
     - git add .
+    - git status
     - |-
       # Check if we have modifications to commit
       CHANGES=$(git status --porcelain | wc -l)
