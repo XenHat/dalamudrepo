@@ -38,5 +38,5 @@ build-job:
       if [[ "${CHANGES}" -gt 0 ]]; then
         git add repo.json
         git commit -m "push back from pipeline"
-        git push origin HEAD:origin -o ci.skip  # prevent triggering pipeline againrefresh"
+        git push origin HEAD:main -o ci.skip  # prevent triggering pipeline againrefresh"
       fi
