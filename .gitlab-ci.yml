@@ -39,8 +39,8 @@ build-job:
       done
     - echo "Checking for differences"; diff repo.json new_repo.json
     - echo "overwriting repo JSON with new file"
-    - mv -v new_repo.json repo.json
-    - rm -v tmp*.json
+    #- mv -v new_repo.json repo.json
+    #- rm -v tmp*.json
     - ls -al
     # Add all generated files to Git
     - git add .
