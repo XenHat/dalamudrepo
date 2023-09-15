@@ -15,11 +15,9 @@ build-job:
     - echo "Compiling the code..."
     - bash ./ci.bash
     - echo "Compile complete."
-
-deploy:
   extends: .git:push
-  script:
-    - bash ./ci.bash
+
+
 .git:push:
   before_script:
     # Clone the repository via HTTPS inside a new directory
@@ -47,6 +45,3 @@ deploy:
         # Update the repository and make sure to skip the pipeline create for this commit
         git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
       fi
-
-
-  stage: deploy
