@@ -1,0 +1,19 @@
+[{
+  "Author": "SF-XIV",
+  "Name": "Roleplayer's Toolbox [Final Pull Edition]",
+  "InternalName": "RoleplayersToolbox",
+  "Description": "Roleplayer's Toolbox - [Final Pull Edition]\nIf you know, you know ~",
+  "AssemblyVersion": "0.3.5",
+  "RepoUrl": "https://github.com/SF-XIV/RolePlayersToolbox-FP-Edition",
+  "IconUrl": "https://raw.githubusercontent.com/SF-XIV/RolePlayersToolbox-FP-Edition/main/icon.png",
+  "ApplicableVersion": "any",
+  "Tags": [ "roleplayers", "toolbox", "emote", "glitch"],
+  "DalamudApiLevel": 6,
+  "IsHide": false,
+  "IsTestingExclusive": false,
+  "LastUpdate": "1653015600",
+  "DownloadCount": 5,
+  "DownloadLinkInstall": "https://github.com/SF-XIV/RolePlayersToolbox-FP-Edition/releases/download/Release/latest.zip",
+  "DownloadLinkTesting": "https://github.com/SF-XIV/RolePlayersToolbox-FP-Edition/releases/download/Release/latest.zip",
+  "DownloadLinkUpdate": "https://github.com/SF-XIV/RolePlayersToolbox-FP-Edition/releases/download/Release/latest.zip"
+  }]
