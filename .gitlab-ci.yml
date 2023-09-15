@@ -28,9 +28,7 @@ build-job:
     - echo "Compiling the code..."
     - bash ./ci.bash
     - echo "Compile complete."
-  stage: deploy
-  script:
-     - |     
+    - |     
       CHANGES=$(git status --porcelain | wc -l)
       if [[ "${CHANGES}" -gt 0 ]]; then
         git config user.email "commits@xenh.at"
