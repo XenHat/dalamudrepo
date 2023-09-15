@@ -1,3 +1,5 @@
+#!/bin/bash
+set -e
 echo "Checking for JQ"
 command -v jq
 echo "Downloading repos"
