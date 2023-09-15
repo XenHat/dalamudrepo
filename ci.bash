@@ -13,9 +13,10 @@ echo "Downloading repos"
 } >tmp.json
 echo "re-formatting new JSON file"
 # FIXME: Make sure plugins don't get added twice from multiple repos by comparing plugin name value
-jq <tmp.json '.[]' | jq -s | jq 'del(.[] | select(.Name == "Fullscreen Toggle"))' > new_repo.json
-echo "Checking for differences"
-diff repo.json new_repo.json
-echo "overwriting repo JSON with new file"
-mv -v new_repo.json repo.json
-rm -v tmp*.json
+#jq <tmp.json '.[]' | jq -s | jq 'del(.[] | select(.Name == "Fullscreen Toggle"))' > new_repo.json
+# jq <tmp.json '.[]' | jq -s | tee new_repo.json
+# echo "Checking for differences"
+# diff repo.json new_repo.json
+# echo "overwriting repo JSON with new file"
+# mv -v new_repo.json repo.json
+# rm -v tmp*.json
