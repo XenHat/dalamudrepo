@@ -13,8 +13,7 @@ build-job:
 deploy:
   extends: .git:push
   script:
-    - echo "Attempting deployment"
-
+    - bash ./ci.bash
 .git:push:
   after_script:
     # Go to the new directory
