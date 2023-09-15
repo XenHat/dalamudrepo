@@ -8,6 +8,7 @@ echo "Downloading repos"
 	wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json'
 	wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json'
 	wget -qO- 'https://git.anna.lgbt/ascclemens/plugin_repo/raw/branch/main/unofficial.json'
+	wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json'
 
 } >tmp.json
 echo "re-formatting new JSON file"
