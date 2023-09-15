@@ -32,11 +32,8 @@ build-job:
   after_script:
     # cd into the new cleanly created repo for pushing purposes
     - cd "${CI_COMMIT_SHA}"
-    - ls -a
     # Add all generated files to Git
-    - git rm *.tmp
     - git add .
-    - git status
     - |-
       # Check if we have modifications to commit
       CHANGES=$(git status --porcelain | wc -l)
