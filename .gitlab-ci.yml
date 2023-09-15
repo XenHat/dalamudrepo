@@ -25,20 +25,20 @@ build-job:
     - ls -al
     # - echo "Compiling the code..."; bash ./ci.bash && echo "Compile complete."
     - |-
-      wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json' > sfxiv.tmp
-      wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json' > leonblade.tmp
-      wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp
-      wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp
+      wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json' > sfxiv.tmp;
+      wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json' > leonblade.tmp;
+      wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp;
+      wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp;
       wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp
     - |- 
       for file in ./*.tmp; do
         cat $file | jq -s 'flatten(1)' | jq -s > new_repo.json
       done
     - echo "Checking for differences"; diff repo.json new_repo.json
-    - echo "overwriting repo JSON with new file"
+    #- echo "overwriting repo JSON with new file"
     #- mv -v new_repo.json repo.json
     #- rm -v tmp*.json
-    - ls -al
+    - ls -l
     # Add all generated files to Git
     - git add .
     - git status
