@@ -1,9 +1,5 @@
 image: node:latest
 
-before_script:
-  - apt-get -qq update
-  - apt-get install -y jq
-
 stages:
   # List of stages for jobs, and their order of execution
   - build
@@ -12,11 +8,12 @@ build-job:
   # This job runs in the build stage, which runs first.
   stage: build
   script:
+    - apt-get -qq update
+    - apt-get install -y jq
     - echo "Compiling the code..."
     - bash ./ci.bash
     - echo "Compile complete."
   extends: .git:push
-
 
 .git:push:
   before_script:
