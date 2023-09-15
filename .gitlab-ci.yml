@@ -31,4 +31,9 @@ build-job:
 
   stage: deploy
   script:
-    - chmod +x ./commit-changes.sh; ./commit-changes.sh "GitLag CI" "noreply@acme.com" "Repos refresh"
+    - git config user.email "commits@xenh.at"
+    - git config user.name "ci-bot"
+    - git remote add gitlab_origin https://oauth2:$ACCESS_TOKEN@gitlab.com/path-to-project.git
+    - git add .
+    - git commit -m "push back from pipeline"
+    - git push gitlab_origin HEAD:main -o ci.skip # prevent triggering pipeline againrefresh"
