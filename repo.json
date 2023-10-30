@@ -240,7 +240,7 @@
     "IsHide": "False",
     "IsTestingExclusive": "False",
     "LastUpdated": 1696380899,
-    "DownloadCount": 32761,
+    "DownloadCount": 32968,
     "DownloadLinkInstall": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.1/BDTHPlugin.zip",
     "DownloadLinkTesting": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.1/BDTHPlugin.zip",
     "DownloadLinkUpdate": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.1/BDTHPlugin.zip"
@@ -379,7 +379,7 @@
     "Punchline": "Automatically skips subtitle boxes and confirms cutscene skipping. Useful mostly for alt levelling. Requires /at command to be typed on each log in to be enabled.",
     "Description": "",
     "InternalName": "TextAdvance",
-    "AssemblyVersion": "3.1.0.3",
+    "AssemblyVersion": "3.2.0.0",
     "RepoUrl": "https://github.com/NightmareXIV/TextAdvance",
     "ApplicableVersion": "any",
     "DalamudApiLevel": 9,
