@@ -20,6 +20,7 @@ build-job:
     - jq -s 'add' ./*.tmp.json > new_repo.json
     - rm *.tmp.json
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
+  interruptible: true
   extends: .git:push
 
 .git:push:
