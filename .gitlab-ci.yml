@@ -19,10 +19,12 @@ test:
   script:
     # this should fail the pipeline if jq is not found
     - command -v jq
+  interruptible: true
 clone:
   script:
     # Clone the repository via HTTPS inside a new directory
     - git clone -–depth 1 --single-branch "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
+  interruptible: true
 
 download:
   stage: download
