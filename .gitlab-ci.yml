@@ -2,16 +2,8 @@ image: node:latest
 
 stages:
   # List of stages for jobs, and their order of execution
-  - test
-  # - clone
   - download
-  # - combine
-  # - commit
   - push
-  # step-1:
-#   stage: test
-#   script:
-#     - command -v jq
 
 cache:
   key: "$CI_BUILD_REF_NAME" # contains either the branch or the tag, so it's caching per branch
@@ -19,35 +11,33 @@ cache:
   paths:
     - "apt-cache/"
 
-before_script:
+# ensure_jq:
+#   script:
+#   - export APT_CACHE_DIR=`pwd`/apt-cache
+#   - mkdir -pv $APT_CACHE_DIR
+#   - ls $APT_CACHE_DIR || echo "no apt-cache dir found"
+#   - apt-get -o dir::cache::archives=$APT_CACHE_DIR update -y
+#   - apt-get -o dir::cache::archives=$APT_CACHE_DIR install jq -y
+#   - jq --version jqVersion
+#
+  # clone:
+  #   stage: clone
+  #   script:
+  #     # Clone the repository via HTTPS inside a new directory
+  #     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
+  #   interruptible: true
+  #
+download:
+  stage: download
+  before_script:
   - export APT_CACHE_DIR=`pwd`/apt-cache
   - mkdir -pv $APT_CACHE_DIR
   - ls $APT_CACHE_DIR || echo "no apt-cache dir found"
   - apt-get -o dir::cache::archives=$APT_CACHE_DIR update -y
   - apt-get -o dir::cache::archives=$APT_CACHE_DIR install jq -y
   - jq --version jqVersion
-
-test:
-  stage: test
   script:
-    - jq --version jqVersion
-
-# clone:
-#   stage: clone
-#   script:
-#     # Clone the repository via HTTPS inside a new directory
-#     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
-#   interruptible: true
-#
-download:
-  stage: download
-  script:
-    # Clone the repository via HTTPS inside a new directory
-    - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
-    # cd into the new cleanly created repo for pushing purposes
-    # - cd "${CI_COMMIT_SHA}" || exit 1
     - ls -al
-    # - echo "Compiling the code..."; bash ./ci.bash && echo "Compile complete."
     - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json' > leonblade.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp.json
@@ -58,13 +48,19 @@ download:
     - jq -s 'add' ./*.tmp.json > new_repo.json
     - rm *.tmp.json
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
+
+push:
+    script:
+    # Clone the repository via HTTPS inside a new directory
+    - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
+
     # Set the displayed user with the commits that are about to be made
     - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
     - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
     # cd into the new cleanly created repo for pushing purposes
-    - cd "${CI_COMMIT_SHA}" || exit 1
+    - cd "${CI_COMMIT_SHA}"
     # Add all generated files to Git
-    - git add . || exit 0
+    - git add .
     - |-
       # Check if we have modifications to commit
       CHANGES=$(git status --porcelain | wc -l)
@@ -75,9 +71,9 @@ download:
 
       # Commit all changes
       git commit -m "Automated update"
+
+      # Update the repository and make sure to skip the pipeline create for this commit
+      git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip || exit 1
       fi
-push:
-  stage: push
-  script:
-    # Update the repository and make sure to skip the pipeline create for this commit
-    - git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
+
+
