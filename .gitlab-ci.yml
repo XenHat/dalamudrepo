@@ -37,12 +37,14 @@ download:
     - wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Sevii77/ffxiv_materialui_accent/master/repo.json' > materialui.tmp.json
+  interruptible: true
 merge:
   stage: combine
   script:
     - jq -s 'add' ./*.tmp.json > new_repo.json
     - rm *.tmp.json
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
+  interruptible: true
 
 commit:
   stage: commit
