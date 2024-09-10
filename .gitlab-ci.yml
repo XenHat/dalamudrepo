@@ -53,6 +53,8 @@ update repo:
     - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
     # cd into the new cleanly created repo for pushing purposes
     - cd "${CI_COMMIT_SHA}"
+    # show repository status in CI log
+    - git status
     # Add all generated files to Git
     - git add .
     - |-
