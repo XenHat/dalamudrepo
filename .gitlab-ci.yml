@@ -2,18 +2,18 @@ image: node:latest
 
 stages:
   # List of stages for jobs, and their order of execution
-  - prepare and cancel
-  - merge repos
-  - push new repo metadata
+  - test
+  - combine
+  - push
 step-1:
-  stage: prepare and cancel
+  stage: test
   script:
-    - echo "Can be canceled."
+    - echo Can be canceled.
   interruptible: true
 
-step-2:
+build:
   # This job runs in the build stage, which runs first.
-  stage: merge repos
+  stage: combine
   script:
     - which jq || apt-get -qq update && apt-get install -y jq
 
@@ -31,7 +31,7 @@ step-2:
   extends: .git:push
 
 .git:push:
-  stage: push new repo metadata
+  stage: push
   before_script:
     # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
