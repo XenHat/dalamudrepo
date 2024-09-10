@@ -42,7 +42,7 @@ build:
     - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
   after_script:
     # cd into the new cleanly created repo for pushing purposes
-    - cd "${CI_COMMIT_SHA}"
+    - cd "${CI_COMMIT_SHA}" || exit 1
     # Add all generated files to Git
     - git add . || exit 0
     - |-
