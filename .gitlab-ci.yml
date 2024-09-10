@@ -2,20 +2,31 @@ image: imega/jq
 
 stages:
   # List of stages for jobs, and their order of execution
-  # - test
+  - test
+  - clone
+  - download
   - combine
+  - commit
   - push
 # step-1:
 #   stage: test
 #   script:
 #     - command -v jq
 
-build:
+test:
   # This job runs in the build stage, which runs first.
-  stage: combine
+  stage: test
   script:
     # this should fail the pipeline if jq is not found
     - command -v jq
+clone:
+  script:
+    # Clone the repository via HTTPS inside a new directory
+    - git clone -–depth 1 --single-branch "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
+
+download:
+  stage: download
+  script:
     - ls -al
     # - echo "Compiling the code..."; bash ./ci.bash && echo "Compile complete."
     - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
@@ -24,21 +35,20 @@ build:
     - wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Sevii77/ffxiv_materialui_accent/master/repo.json' > materialui.tmp.json
+merge:
+  stage: combine
+  script:
     - jq -s 'add' ./*.tmp.json > new_repo.json
     - rm *.tmp.json
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
-  extends: .git:push
 
-.git:push:
-  stage: push
+commit:
+  stage: commit
   before_script:
-    # Clone the repository via HTTPS inside a new directory
-    - git clone -–depth 1 --single-branch "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
-
     # Set the displayed user with the commits that are about to be made
     - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
     - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
-  after_script:
+  script:
     # cd into the new cleanly created repo for pushing purposes
     - cd "${CI_COMMIT_SHA}" || exit 1
     # Add all generated files to Git
@@ -53,7 +63,9 @@ build:
 
         # Commit all changes
         git commit -m "Automated update"
-
+      fi
+push:
+  stage: push
+  script:
         # Update the repository and make sure to skip the pipeline create for this commit
         git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
-      fi
