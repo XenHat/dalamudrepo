@@ -8,9 +8,7 @@ stages:
 step-1:
   stage: test
   script:
-    - echo Can be canceled.
     - command -v jq
-  interruptible: true
 
 build:
   # This job runs in the build stage, which runs first.
