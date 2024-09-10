@@ -28,11 +28,9 @@ build:
     - rm *.tmp.json
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
   extends: .git:push
-  interruptible: true
 
 .git:push:
   stage: push
-  interruptible: true
   before_script:
     # Clone the repository via HTTPS inside a new directory
     - git clone -–depth 1 --single-branch "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
