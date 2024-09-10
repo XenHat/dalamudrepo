@@ -3,8 +3,6 @@ image: node:latest
 stages:
   # List of stages for jobs, and their order of execution
   - download
-  - push
-
 cache:
   key: "$CI_BUILD_REF_NAME" # contains either the branch or the tag, so it's caching per branch
   untracked: true
@@ -49,7 +47,7 @@ download:
     - rm *.tmp.json
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
 
-push:
+.post:
     script:
     # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
