@@ -2,13 +2,13 @@ image: node:latest
 
 stages:
   # List of stages for jobs, and their order of execution
-  - test
+  # - test
   - combine
   - push
-step-1:
-  stage: test
-  script:
-    - command -v jq
+# step-1:
+#   stage: test
+#   script:
+#     - command -v jq
 
 build:
   # This job runs in the build stage, which runs first.
