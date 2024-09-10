@@ -1,34 +1,51 @@
-image: imega/jq
+image: node:latest
 
 stages:
   # List of stages for jobs, and their order of execution
   - test
-  - clone
+  # - clone
   - download
-  - combine
-  - commit
+  # - combine
+  # - commit
   - push
-# step-1:
+  # step-1:
 #   stage: test
 #   script:
 #     - command -v jq
 
+cache:
+  key: "$CI_BUILD_REF_NAME" # contains either the branch or the tag, so it's caching per branch
+  untracked: true
+  paths:
+    - "apt-cache/"
+
+before_script:
+  - export APT_CACHE_DIR=`pwd`/apt-cache
+  - mkdir -pv $APT_CACHE_DIR
+  - ls $APT_CACHE_DIR || echo "no apt-cache dir found"
+  - apt-get -o dir::cache::archives=$APT_CACHE_DIR update -y
+  - apt-get -o dir::cache::archives=$APT_CACHE_DIR install jq -y
+  - jq --version jqVersion
+
 test:
-  # This job runs in the build stage, which runs first.
   stage: test
   script:
-    # this should fail the pipeline if jq is not found
-    - which jq
-  interruptible: true
-clone:
-  script:
-    # Clone the repository via HTTPS inside a new directory
-    - git clone -–depth 1 --single-branch "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
-  interruptible: true
+    - jq --version jqVersion
 
+# clone:
+#   stage: clone
+#   script:
+#     # Clone the repository via HTTPS inside a new directory
+#     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
+#   interruptible: true
+#
 download:
   stage: download
   script:
+    # Clone the repository via HTTPS inside a new directory
+    - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
+    # cd into the new cleanly created repo for pushing purposes
+    # - cd "${CI_COMMIT_SHA}" || exit 1
     - ls -al
     # - echo "Compiling the code..."; bash ./ci.bash && echo "Compile complete."
     - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
@@ -37,22 +54,13 @@ download:
     - wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Sevii77/ffxiv_materialui_accent/master/repo.json' > materialui.tmp.json
-  interruptible: true
-merge:
-  stage: combine
-  script:
+    - ls *.tmp.json
     - jq -s 'add' ./*.tmp.json > new_repo.json
     - rm *.tmp.json
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
-  interruptible: true
-
-commit:
-  stage: commit
-  before_script:
     # Set the displayed user with the commits that are about to be made
     - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
     - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
-  script:
     # cd into the new cleanly created repo for pushing purposes
     - cd "${CI_COMMIT_SHA}" || exit 1
     # Add all generated files to Git
@@ -62,14 +70,14 @@ commit:
       CHANGES=$(git status --porcelain | wc -l)
 
       if [ "$CHANGES" -gt "0" ]; then
-        # Show the status of files that are about to be created, updated or deleted
-        git status
+      # Show the status of files that are about to be created, updated or deleted
+      git status
 
-        # Commit all changes
-        git commit -m "Automated update"
+      # Commit all changes
+      git commit -m "Automated update"
       fi
 push:
   stage: push
   script:
-        # Update the repository and make sure to skip the pipeline create for this commit
-        git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
+    # Update the repository and make sure to skip the pipeline create for this commit
+    - git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip
