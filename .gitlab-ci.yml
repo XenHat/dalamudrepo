@@ -53,8 +53,8 @@ build:
         git status
 
         # Commit all changes
-        git commit -m "Automated update"
+        git commit -m "Automated update" || exit 0
 
         # Update the repository and make sure to skip the pipeline create for this commit
-        git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip || exit 1
+        git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip || exit 0
       fi
