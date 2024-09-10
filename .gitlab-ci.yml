@@ -9,14 +9,15 @@ step-1:
   stage: test
   script:
     - echo Can be canceled.
+    - command -v jq
   interruptible: true
 
 build:
   # This job runs in the build stage, which runs first.
   stage: combine
   script:
-
-    - if command -v jq; then jq --version; else echo "JQ not found; runner incompatible!"; exit 1; fi
+    # this should fail the pipeline if jq is not found
+    - command -v jq
     - ls -al
     # - echo "Compiling the code..."; bash ./ci.bash && echo "Compile complete."
     - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
