@@ -28,6 +28,7 @@ build:
     - rm *.tmp.json
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
   extends: .git:push
+  interruptible: true
 
 .git:push:
   stage: push
