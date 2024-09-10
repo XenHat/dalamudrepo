@@ -15,8 +15,8 @@ build:
   # This job runs in the build stage, which runs first.
   stage: combine
   script:
-    - which jq || apt-get -qq update && apt-get install -y jq
 
+    - if command -v jq; then jq --version; else echo "JQ not found; runner incompatible!"; exit 1; fi
     - ls -al
     # - echo "Compiling the code..."; bash ./ci.bash && echo "Compile complete."
     - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
