@@ -24,6 +24,7 @@ build-job:
   extends: .git:push
 
 .git:push:
+  interruptible: true
   before_script:
     # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
