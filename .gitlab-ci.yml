@@ -2,17 +2,18 @@ image: node:latest
 
 stages:
   # List of stages for jobs, and their order of execution
-  - cancellable
-  - build
+  - stage1
+  - stage2
+  - stage3
 step-1:
-  stage: cancellable
+  stage: stage1
   script:
     - echo "Can be canceled."
   interruptible: true
 
-build-job:
+step-2:
   # This job runs in the build stage, which runs first.
-  stage: build
+  stage: stage2
   script:
     - which jq || apt-get -qq update && apt-get install -y jq
 
@@ -27,11 +28,10 @@ build-job:
     - jq -s 'add' ./*.tmp.json > new_repo.json
     - rm *.tmp.json
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
-  interruptible: true
   extends: .git:push
 
 .git:push:
-  interruptible: true
+  stage: stage3
   before_script:
     # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
