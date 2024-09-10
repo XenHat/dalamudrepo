@@ -2,7 +2,14 @@ image: node:latest
 
 stages:
   # List of stages for jobs, and their order of execution
+  - cancellable
   - build
+step-1:
+  stage: cancellable
+  script:
+    - echo "Can be canceled."
+  interruptible: true
+
 build-job:
   # This job runs in the build stage, which runs first.
   stage: build
