@@ -73,7 +73,8 @@ update-container:
 
       # Update the repository and make sure to skip the pipeline create for this commit
       echo "Attempting to push to https://gitlab-ci-token:SNIP@gitlab.com/${CI_PROJECT_PATH} ${CI_DEFAULT_BRANCH} -o ci.skip"
-      git push https://gitlab-ci-token:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH} "${CI_DEFAULT_BRANCH}" -o ci.skip || exit 1
+      git remote set-url origin "https://gitlab-ci-token:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+      git push -o ci.skip || exit 1
       fi
 
 
