@@ -72,7 +72,7 @@ update-container:
       git commit -m "Automated update"
 
       # Update the repository and make sure to skip the pipeline create for this commit
-      git push https://gitlab-ci-token:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH_SLUG} "${CI_DEFAULT_BRANCH}" -o ci.skip || exit 1
+      git push https://gitlab-ci-token:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH} "${CI_DEFAULT_BRANCH}" -o ci.skip || exit 1
       fi
 
 
