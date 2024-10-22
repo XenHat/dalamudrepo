@@ -2,7 +2,10 @@ image: node:latest
 
 stages:
   # List of stages for jobs, and their order of execution
-  - download
+  - prepare
+  - clone
+  - update
+  - deploy
 cache:
   key: "$CI_BUILD_REF_NAME" # contains either the branch or the tag, so it's caching per branch
   untracked: true
@@ -25,8 +28,8 @@ cache:
   #     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
   #   interruptible: true
   #
-update repo:
-  stage: download
+update-container:
+  stage: prepare
   before_script:
   - export APT_CACHE_DIR=`pwd`/apt-cache
   - mkdir -pv $APT_CACHE_DIR
@@ -69,7 +72,7 @@ update repo:
       git commit -m "Automated update"
 
       # Update the repository and make sure to skip the pipeline create for this commit
-      git push origin "${CI_DEFAULT_BRANCH}" -o ci.skip || exit 1
+      git push https://gitlab-ci-token:${GITLAB_TOKEN}@gitlab.com/${CI_PROJECT_PATH_SLUG} "${CI_DEFAULT_BRANCH}" -o ci.skip || exit 1
       fi
 
 
