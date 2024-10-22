@@ -72,7 +72,7 @@ update-container:
       git commit -m "Automated update"
 
       # Update the repository and make sure to skip the pipeline create for this commit
-      git push -o ci.skip || exit 1
+      git push --force -o ci.skip || exit 1
       fi
 
 
