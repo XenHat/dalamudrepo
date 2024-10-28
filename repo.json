@@ -120,8 +120,8 @@
     "Description": "See who is missing food buff at countdown start and optionally post to party/echo chat with a customizable message.",
     "Punchline": "Someone in our group wouldn't eat their food. I got tired of telling them to. Now the plugin does.",
     "InternalName": "FoodCheck",
-    "AssemblyVersion": "1.0.0.5",
-    "Changelog": "- Added a method to (optionally) check food when a ready check goes out\n- Added the ability to disable checking food when a countdown goes out\n- Added error messages that will show if both methods of checking or both methods of posting are disabled, which would cause the plugin to do nothing\n- Improved the settings UI",
+    "AssemblyVersion": "1.0.0.6",
+    "Changelog": "- Added the ability to post when people have under x minutes remaining on food buff",
     "RepoUrl": "https://github.com/Aida-Enna/XIVPlugins",
     "ApplicableVersion": "any",
     "Tags": [
@@ -236,7 +236,7 @@
     "IsHide": "False",
     "IsTestingExclusive": "False",
     "LastUpdated": 1720688557,
-    "DownloadCount": 79716,
+    "DownloadCount": 79835,
     "DownloadLinkInstall": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.6/BDTHPlugin.zip",
     "DownloadLinkTesting": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.6/BDTHPlugin.zip",
     "DownloadLinkUpdate": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.6/BDTHPlugin.zip"
