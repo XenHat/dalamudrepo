@@ -23,12 +23,18 @@ build:
     # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
     - ls -al
-    - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json' > leonblade.tmp.json
+    - wget -qO- 'https://git.anna.lgbt/anna/plugin_repo/raw/branch/main/pluginmaster.json' > anna.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp.json
+    - wget -qO- 'https://raw.githubusercontent.com/BardToolbox/BardToolbox-Release/master/pluginmaster.json' > bardtoolbox.tmp.json
+    - wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json' > leonblade.tmp.json
+    - wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp.json
+    - wget -qO- 'https://raw.githubusercontent.com/reckhou/DalamudPlugins-Ori/api6/pluginmaster.json' > midibard2.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Sevii77/ffxiv_materialui_accent/master/repo.json' > materialui.tmp.json
+    - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
+    - wget -qO- 'https://raw.githubusercontent.com/UnknownX7/DalamudPluginRepo/master/pluginmaster.json' > unknownx7.tmp.json
+    
+    
     - ls *.tmp.json
     - jq -s 'add' ./*.tmp.json > new_repo.json
     - rm *.tmp.json
