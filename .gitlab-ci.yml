@@ -33,8 +33,6 @@ build:
     - wget -qO- 'https://raw.githubusercontent.com/Sevii77/ffxiv_materialui_accent/master/repo.json' > materialui.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/UnknownX7/DalamudPluginRepo/master/pluginmaster.json' > unknownx7.tmp.json
-    
-    
     - ls *.tmp.json
     - jq -s 'add' ./*.tmp.json > new_repo.json
     - rm *.tmp.json
