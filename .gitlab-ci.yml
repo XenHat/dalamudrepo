@@ -23,7 +23,7 @@ build:
     # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
     - ls -al
-    - wget -qO- 'https://git.anna.lgbt/anna/plugin_repo/raw/branch/main/pluginmaster.json' > anna.tmp.json
+    # - wget -qO- 'https://git.anna.lgbt/anna/plugin_repo/raw/branch/main/pluginmaster.json' > anna.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/BardToolbox/BardToolbox-Release/master/pluginmaster.json' > bardtoolbox.tmp.json
