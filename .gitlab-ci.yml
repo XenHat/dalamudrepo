@@ -12,13 +12,6 @@ cache:
 
 build:
   stage: build
-  before_script:
-    - export APT_CACHE_DIR=`pwd`/apt-cache
-    - mkdir -pv $APT_CACHE_DIR
-    - ls $APT_CACHE_DIR || echo "no apt-cache dir found"
-    - apt-get -o dir::cache::archives=$APT_CACHE_DIR update -y
-    - apt-get -o dir::cache::archives=$APT_CACHE_DIR install jq -y
-    - jq --version jqVersion
   script:
     # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
