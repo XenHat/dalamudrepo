@@ -1,4 +1,4 @@
-image: node:latest
+image: ghcr.io/xenhat/dalamud-repo-image:latest
 
 stages:
   # List of stages for jobs, and their order of execution
