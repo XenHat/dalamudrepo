@@ -314,7 +314,7 @@
     "IsHide": "False",
     "IsTestingExclusive": "False",
     "LastUpdated": 1743456054,
-    "DownloadCount": 51618,
+    "DownloadCount": 51739,
     "DownloadLinkInstall": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.9/BDTHPlugin.zip",
     "DownloadLinkTesting": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.9/BDTHPlugin.zip",
     "DownloadLinkUpdate": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.9/BDTHPlugin.zip"
@@ -726,7 +726,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/DalamudRepoBrowser/releases/download/v2.0.3.3/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/DalamudRepoBrowser/releases/download/v2.0.3.3/latest.zip",
-    "DownloadCount": 16203,
+    "DownloadCount": 16204,
     "LastUpdate": "1700166956"
   },
   {
@@ -752,8 +752,34 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/Cammy/releases/download/v2.1.0.12/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/Cammy/releases/download/v2.1.0.12/latest.zip",
-    "DownloadCount": 21389,
+    "DownloadCount": 21662,
     "LastUpdate": "1745885672"
+  },
+  {
+    "Author": "UnknownX",
+    "Name": "OOBlugin",
+    "Punchline": "oob oob",
+    "Description": "oob oob",
+    "Changelog": "",
+    "InternalName": "OOBlugin",
+    "AssemblyVersion": "1.1.2.11",
+    "RepoUrl": "https://github.com/UnknownX7/OOBlugin",
+    "ApplicableVersion": "any",
+    "CategoryTags": [
+      "utility"
+    ],
+    "DalamudApiLevel": 9,
+    "IconUrl": "",
+    "ImageUrls": [
+      ""
+    ],
+    "DownloadLinkInstall": "https://github.com/UnknownX7/OOBlugin/releases/download/v1.1.2.11/latest.zip",
+    "IsHide": false,
+    "IsTestingExclusive": false,
+    "DownloadLinkTesting": "https://github.com/UnknownX7/OOBlugin/releases/download/v1.1.2.11/latest.zip",
+    "DownloadLinkUpdate": "https://github.com/UnknownX7/OOBlugin/releases/download/v1.1.2.11/latest.zip",
+    "DownloadCount": 10429,
+    "LastUpdate": "1696378706"
   },
   {
     "Author": "UnknownX",
@@ -778,7 +804,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/ReAction/releases/download/v1.3.4.1/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/ReAction/releases/download/v1.3.4.1/latest.zip",
-    "DownloadCount": 18201,
+    "DownloadCount": 18224,
     "LastUpdate": "1743025009"
   },
   {
@@ -828,33 +854,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/NoClippy/releases/download/v0.5.0.18/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/NoClippy/releases/download/v0.5.0.18/latest.zip",
-    "DownloadCount": 48792,
+    "DownloadCount": 48884,
     "LastUpdate": "1742952225"
-  },
-  {
-    "Author": "UnknownX",
-    "Name": "OOBlugin",
-    "Punchline": "oob oob",
-    "Description": "oob oob",
-    "Changelog": "",
-    "InternalName": "OOBlugin",
-    "AssemblyVersion": "1.1.2.11",
-    "RepoUrl": "https://github.com/UnknownX7/OOBlugin",
-    "ApplicableVersion": "any",
-    "CategoryTags": [
-      "utility"
-    ],
-    "DalamudApiLevel": 9,
-    "IconUrl": "",
-    "ImageUrls": [
-      ""
-    ],
-    "DownloadLinkInstall": "https://github.com/UnknownX7/OOBlugin/releases/download/v1.1.2.11/latest.zip",
-    "IsHide": false,
-    "IsTestingExclusive": false,
-    "DownloadLinkTesting": "https://github.com/UnknownX7/OOBlugin/releases/download/v1.1.2.11/latest.zip",
-    "DownloadLinkUpdate": "https://github.com/UnknownX7/OOBlugin/releases/download/v1.1.2.11/latest.zip",
-    "DownloadCount": 10429,
-    "LastUpdate": "1696378706"
   }
 ]
