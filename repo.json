@@ -314,7 +314,7 @@
     "IsHide": "False",
     "IsTestingExclusive": "False",
     "LastUpdated": 1743456054,
-    "DownloadCount": 66919,
+    "DownloadCount": 67136,
     "DownloadLinkInstall": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.9/BDTHPlugin.zip",
     "DownloadLinkTesting": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.9/BDTHPlugin.zip",
     "DownloadLinkUpdate": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.6.9/BDTHPlugin.zip"
@@ -726,7 +726,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/Cammy/releases/download/v2.1.0.12/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/Cammy/releases/download/v2.1.0.12/latest.zip",
-    "DownloadCount": 37472,
+    "DownloadCount": 37631,
     "LastUpdate": "1745885672"
   },
   {
@@ -752,7 +752,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/DalamudRepoBrowser/releases/download/v2.0.3.3/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/DalamudRepoBrowser/releases/download/v2.0.3.3/latest.zip",
-    "DownloadCount": 16224,
+    "DownloadCount": 16225,
     "LastUpdate": "1700166956"
   },
   {
@@ -779,7 +779,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/NoClippy/releases/download/v0.5.0.18/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/NoClippy/releases/download/v0.5.0.18/latest.zip",
-    "DownloadCount": 61219,
+    "DownloadCount": 61359,
     "LastUpdate": "1742952225"
   },
   {
@@ -805,7 +805,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/OOBlugin/releases/download/v1.1.2.11/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/OOBlugin/releases/download/v1.1.2.11/latest.zip",
-    "DownloadCount": 10463,
+    "DownloadCount": 10465,
     "LastUpdate": "1696378706"
   },
   {
@@ -831,7 +831,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/ReAction/releases/download/v1.3.4.1/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/ReAction/releases/download/v1.3.4.1/latest.zip",
-    "DownloadCount": 22451,
+    "DownloadCount": 22519,
     "LastUpdate": "1743025009"
   },
   {
@@ -854,7 +854,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/Fractionality/releases/download/v1.0.1.5/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/Fractionality/releases/download/v1.0.1.5/latest.zip",
-    "DownloadCount": 903,
+    "DownloadCount": 904,
     "LastUpdate": "1680237651"
   }
 ]
