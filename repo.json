@@ -314,7 +314,7 @@
     "IsHide": "False",
     "IsTestingExclusive": "False",
     "LastUpdated": 1754798589,
-    "DownloadCount": 38651,
+    "DownloadCount": 39657,
     "DownloadLinkInstall": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.7.0/BDTHPlugin.zip",
     "DownloadLinkTesting": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.7.0/BDTHPlugin.zip",
     "DownloadLinkUpdate": "https://github.com/LeonBlade/BDTHPlugin/releases/download/1.7.0/BDTHPlugin.zip"
@@ -351,7 +351,7 @@
     "Author": "akira0245, Ori, Kalle, Zune",
     "Name": "MidiBard 2",
     "InternalName": "MidiBard2",
-    "AssemblyVersion": "3.2.0.2",
+    "AssemblyVersion": "3.2.0.3",
     "Description": "Bard performance using midi files or keyboard.\n- Solo and ensemble mode support\n- Text commands for instrument equip and switch\nSupported by FFXIV Bards & Bands Community: discord.gg/ff14bard",
     "ApplicableVersion": "any",
     "RepoUrl": "https://midibard.org",
@@ -376,7 +376,7 @@
     "IsHide": "False",
     "IsTestingExclusive": "False",
     "DownloadCount": 191289,
-    "LastUpdate": "1754621676",
+    "LastUpdate": "1754758946",
     "DownloadLinkInstall": "https://raw.githubusercontent.com/reckhou/DalamudPlugins-Ori/api6/plugins/MidiBard2/latest.zip",
     "DownloadLinkTesting": "https://raw.githubusercontent.com/reckhou/DalamudPlugins-Ori/api6/plugins/MidiBard2/latest.zip",
     "DownloadLinkUpdate": "https://raw.githubusercontent.com/reckhou/DalamudPlugins-Ori/api6/plugins/MidiBard2/latest.zip"
@@ -744,7 +744,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/Cammy/releases/download/v2.1.0.13/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/Cammy/releases/download/v2.1.0.13/latest.zip",
-    "DownloadCount": 23580,
+    "DownloadCount": 24216,
     "LastUpdate": "1754893981"
   },
   {
@@ -771,7 +771,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/NoClippy/releases/download/v0.5.0.19/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/NoClippy/releases/download/v0.5.0.19/latest.zip",
-    "DownloadCount": 34237,
+    "DownloadCount": 34984,
     "LastUpdate": "1754723794"
   },
   {
@@ -797,7 +797,7 @@
     "IsTestingExclusive": false,
     "DownloadLinkTesting": "https://github.com/UnknownX7/ReAction/releases/download/v1.3.4.2/latest.zip",
     "DownloadLinkUpdate": "https://github.com/UnknownX7/ReAction/releases/download/v1.3.4.2/latest.zip",
-    "DownloadCount": 13320,
+    "DownloadCount": 13520,
     "LastUpdate": "1754732126"
   },
   {
