@@ -1,5 +1,14 @@
 image: ghcr.io/xenhat/dalamud-repo-image:latest
 
+default:
+  interruptible: true
+
+variables:
+  FF_USE_FASTZIP: "true"
+  # These can be specified per job or per pipeline (slowest, slow, default, fast, and fastest)
+  ARTIFACT_COMPRESSION_LEVEL: "fastest"
+  CACHE_COMPRESSION_LEVEL: "fastest"
+
 stages:
   # List of stages for jobs, and their order of execution
   - build
@@ -16,6 +25,7 @@ build:
     # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
     - ls -al
+    # TODO: Put repos in a file, read from file and name repo${index}.tmp.json, dedupe entries.
     # - wget -qO- 'https://git.anna.lgbt/anna/plugin_repo/raw/branch/main/pluginmaster.json' > anna.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp.json
     - sleep 15
@@ -34,6 +44,16 @@ build:
     - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
     - sleep 15
     - wget -qO- 'https://raw.githubusercontent.com/UnknownX7/DalamudPluginRepo/master/pluginmaster.json' > unknownx7.tmp.json
+    - sleep 15
+    - wget -qO- 'https://love.puni.sh/ment.json' > punish.tmp.json
+    - sleep 15
+    - wget -qO- 'https://raw.githubusercontent.com/Chalkos/Marketbuddy/main/repo.json' > mbuddy.tmp.json
+    - sleep 15
+    - wget -qO- 'https://aetherment.sevii.dev/plugin' > aetherment.tmp.json
+    - sleep 15
+    - wget -qO- 'https://raw.githubusercontent.com/marzent/IINACT/main/repo.json' > iinact.tmp.json
+    - sleep 15
+    - wget -qO- 'https://puni.sh/api/repository/veyn' > veyn.tmp.json
     - sleep 30
     - ls *.tmp.json
     - jq -s 'add' ./*.tmp.json > new_repo.json
