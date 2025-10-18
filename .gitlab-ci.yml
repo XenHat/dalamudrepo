@@ -25,36 +25,37 @@ build:
     # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
     - ls -al
+    # Wait for gitlab api timeout to end just in case
+    - sleep 60
     # TODO: Put repos in a file, read from file and name repo${index}.tmp.json, dedupe entries.
     # - wget -qO- 'https://git.anna.lgbt/anna/plugin_repo/raw/branch/main/pluginmaster.json' > anna.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/BardToolbox/BardToolbox-Release/master/pluginmaster.json' > bardtoolbox.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json' > leonblade.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/reckhou/DalamudPlugins-Ori/api6/pluginmaster.json' > midibard2.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/Sevii77/ffxiv_materialui_accent/master/repo.json' > materialui.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/UnknownX7/DalamudPluginRepo/master/pluginmaster.json' > unknownx7.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://love.puni.sh/ment.json' > punish.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/Chalkos/Marketbuddy/main/repo.json' > mbuddy.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://aetherment.sevii.dev/plugin' > aetherment.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/marzent/IINACT/main/repo.json' > iinact.tmp.json
-    - sleep 15
+    - sleep 1
     - wget -qO- 'https://puni.sh/api/repository/veyn' > veyn.tmp.json
-    - sleep 30
     - ls *.tmp.json
     - jq -s 'add' ./*.tmp.json > new_repo.json
     - rm *.tmp.json
