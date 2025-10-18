@@ -1,5 +1,14 @@
 image: ghcr.io/xenhat/dalamud-repo-image:latest
 
+default:
+  interruptible: true
+
+variables:
+  FF_USE_FASTZIP: "true"
+  # These can be specified per job or per pipeline (slowest, slow, default, fast, and fastest)
+  ARTIFACT_COMPRESSION_LEVEL: "fastest"
+  CACHE_COMPRESSION_LEVEL: "fastest"
+
 stages:
   # List of stages for jobs, and their order of execution
   - build
