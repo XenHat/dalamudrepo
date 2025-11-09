@@ -24,7 +24,6 @@ build:
   script:
     # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
-    - ls -al
     # TODO: Put repos in a file, read from file and name repo${index}.tmp.json, dedupe entries.
     # - wget -qO- 'https://git.anna.lgbt/anna/plugin_repo/raw/branch/main/pluginmaster.json' > anna.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp.json
@@ -63,8 +62,6 @@ build:
     - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
     # cd into the new cleanly created repo for pushing purposes
     - cd "${CI_COMMIT_SHA}"
-    # show repository status in CI log
-    - git status
     # Add all generated files to Git
     - git add .
     - |-
