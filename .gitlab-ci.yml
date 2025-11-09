@@ -78,7 +78,7 @@ build:
         git status
 
         # Commit all changes
-        git commit -m "Automated update"
+        git commit -m "[ci skip] Automated update"
 
         # Change the remote repository to use access token
         git remote rm origin 
