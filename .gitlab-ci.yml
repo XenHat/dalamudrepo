@@ -22,10 +22,8 @@ cache:
 build:
   stage: build
   script:
-    # Clone the repository via HTTPS inside a new directory
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
     # TODO: Put repos in a file, read from file and name repo${index}.tmp.json, dedupe entries.
-    # - wget -qO- 'https://git.anna.lgbt/anna/plugin_repo/raw/branch/main/pluginmaster.json' > anna.tmp.json
     - wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp.json
     - sleep 1
     - wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp.json
@@ -57,28 +55,18 @@ build:
     - jq -s 'add' ./*.tmp.json > new_repo.json
     - rm *.tmp.json
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
-    # Set the displayed user with the commits that are about to be made
     - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
     - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
-    # cd into the new cleanly created repo for pushing purposes
     - cd "${CI_COMMIT_SHA}"
-    # Add all generated files to Git
     - git add .
     - |-
       # Check if we have modifications to commit
       CHANGES=$(git status --porcelain | wc -l)
 
       if [ "$CHANGES" -gt "0" ]; then
-        # Show the status of files that are about to be created, updated or deleted
-        git status
-
-        # Commit all changes
         git commit -m "[ci skip] Automated update"
-
-        # Change the remote repository to use access token
         git remote rm origin 
         git remote add origin "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
         git push --set-upstream origin main
-        # Update the repository and make sure to skip the pipeline create for this commit
         git push -o ci.skip || exit 1
       fi
