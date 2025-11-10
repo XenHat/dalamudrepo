@@ -6,6 +6,11 @@ while IFS= read -r line; do
 	wget -O "repo.${index}.tmp.json" "$line"
 	((index++))
 done <repolist
-jq -s 'add' ./*.tmp.json >new_repo.json
-jq -s 'add' ./repo.*.tmp.json >new_repo.json
-rm ./repo.*.tmp.json
+for f in ./repo.*.tmp.json; do
+	if [[ $(du "$f" | cut -f1) -gt 0 ]]; then
+		jq -s 'add' "$f" >"new_repo.json"
+	else
+		echo "ERR: Skipped $f because it is empty."
+	fi
+	rm "$f"
+done
