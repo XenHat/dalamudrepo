@@ -2,15 +2,15 @@
 index=0
 
 while IFS= read -r line; do
-	wget -qO- "$line" >"repo.${index}.tmp.json"
-	wget -O "repo.${index}.tmp.json" "$line"
+	# Get the data inside and save it pre-formatted consistently
+	echo "Downloading $line"
+	wget -q -O - "$line" | jq '.' >repo.${index}.tmp.json
 	((index++))
 done <repolist
-for f in ./repo.*.tmp.json; do
-	if [[ $(du "$f" | cut -f1) -gt 0 ]]; then
-		jq -s 'add' "$f" >"new_repo.json"
-	else
-		echo "ERR: Skipped $f because it is empty."
-	fi
-	rm "$f"
-done
+echo "Merging all repos"
+jq -n 'reduce inputs as $in (null;
+. + if $in|type == "array" then $in else [$in] end)
+' ./repo.*.tmp.json >new_repo.json
+echo "Renaming file"
+mv new_repo.json repo.json
+# rm "$f"
