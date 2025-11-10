@@ -28,7 +28,6 @@ build:
     - git checkout $CI_COMMIT_REF_NAME
   script:
     - bash merge_repos.bash
-    - mv new_repo.json repo.json
     - git add .
     - |-
       CHANGES=$(git status --porcelain | wc -l)
