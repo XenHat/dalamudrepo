@@ -23,24 +23,7 @@ build:
   stage: build
   script:
     - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
-    # TODO: Put repos in a file, read from file and name repo${index}.tmp.json, dedupe entries.
-    - wget -qO- 'https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/main/repo.json' > aidaenna.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json' > actucnw.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/BardToolbox/BardToolbox-Release/master/pluginmaster.json' > bardtoolbox.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/LeonBlade/DalamudPlugins/main/repo.json' > leonblade.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/NightmareXIV/MyDalamudPlugins/main/pluginmaster.json' > nightmarexiv.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/reckhou/DalamudPlugins-Ori/api6/pluginmaster.json' > midibard2.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/Sevii77/ffxiv_materialui_accent/master/repo.json' > materialui.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/SF-XIV/dalamud-plugins/main/repo.json'> sfxiv.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/UnknownX7/DalamudPluginRepo/master/pluginmaster.json' > unknownx7.tmp.json
-    - wget -qO- 'https://love.puni.sh/ment.json' > punish.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/Chalkos/Marketbuddy/main/repo.json' > mbuddy.tmp.json
-    - wget -qO- 'https://aetherment.sevii.dev/plugin' > aetherment.tmp.json
-    - wget -qO- 'https://raw.githubusercontent.com/marzent/IINACT/main/repo.json' > iinact.tmp.json
-    - wget -qO- 'https://puni.sh/api/repository/veyn' > veyn.tmp.json
-    - ls *.tmp.json
-    - jq -s 'add' ./*.tmp.json > new_repo.json
-    - rm *.tmp.json
+    - bash merge_repos.bash
     - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
     - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
     - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
