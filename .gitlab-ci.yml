@@ -8,6 +8,7 @@ variables:
   # These can be specified per job or per pipeline (slowest, slow, default, fast, and fastest)
   ARTIFACT_COMPRESSION_LEVEL: "fastest"
   CACHE_COMPRESSION_LEVEL: "fastest"
+  GIT_STRATEGY: clone
 
 stages:
   # List of stages for jobs, and their order of execution
@@ -21,22 +22,26 @@ cache:
 
 build:
   stage: build
+  before_script:
+    - git config --global user.name "CI Pipeline"
+    - git config --global user.email "cipipeline@example.com"
+    - git checkout $CI_COMMIT_REF_NAME
   script:
-    - git clone "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" "${CI_COMMIT_SHA}"
     - bash merge_repos.bash
-    - mv new_repo.json "${CI_COMMIT_SHA}"/repo.json
-    - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
-    - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
-    - cd "${CI_COMMIT_SHA}"
+    - mv new_repo.json repo.json
     - git add .
     - |-
-      # Check if we have modifications to commit
       CHANGES=$(git status --porcelain | wc -l)
 
       if [ "$CHANGES" -gt "0" ]; then
+        git reset --soft HEAD
         git commit -m "[ci skip] Automated update"
-        git remote rm origin 
-        git remote add origin "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
-        git push --set-upstream origin main
-        git push -o ci.skip || exit 1
+        git push
+        # git remote rm origin
+        # git remote add origin "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
+        # git remote set-url --push origin "https://${GITLAB_USER_LOGIN}:${GITLAB_TOKEN}@${CI_REPOSITORY_URL#*@}"
+        # git remote get-url
+        # git push
+        # git remote remove ci || true
+        # git remote add ci "https://$TOKEN_NAME:$ACCESS_TOKEN@gitlab.com/<project>.git"
       fi
