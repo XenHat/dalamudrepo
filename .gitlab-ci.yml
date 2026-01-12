@@ -15,7 +15,7 @@ build:
   before_script: |
     git config --global user.name "CI Pipeline"
     git config --global user.email "cipipeline@example.com"
-    git remote set-url origin https://gitlab-ci-token:${CI_PUSH_TOKEN}@$g{CI_PROJECT_URL#https://}.git
+    git remote set-url origin https://gitlab-ci-token:${CI_PUSH_TOKEN}@${CI_PROJECT_URL#https://}.git
     git checkout $CI_COMMIT_REF_NAME
   script:
     - bash merge_repos.bash
