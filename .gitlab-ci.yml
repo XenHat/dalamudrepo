@@ -15,7 +15,7 @@ build:
   before_script: |
     git config --global user.name "CI Pipeline"
     git config --global user.email "cipipeline@example.com"
-    git remote set-url origin https://gitlab-ci-token:${CI_PUSH_TOKEN}@${CI_PROJECT_URL#https://}.git
+    git remote set-url origin https://gitlab-ci-token:${CI_PUSH_TOKEN}@$gitlab.com/XenHat/dalamudrepo.git
     git checkout $CI_COMMIT_REF_NAME
   script:
     - bash merge_repos.bash
@@ -26,7 +26,8 @@ build:
       if [ "$CHANGES" -gt "0" ]; then
         git reset --soft HEAD
         git commit -m "${COMMIT_MESSAGE}"
-      git push origin -o ci.skip HEAD:main
+        git remote set-url origin https://gitlab-ci-token:${CI_PUSH_TOKEN}@$gitlab.com/XenHat/dalamudrepo.git
+        git push origin -o ci.skip HEAD:main
         # git remote rm origin
         # git remote add origin "https://${GITLAB_USERNAME}:${GITLAB_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git"
         # git remote set-url --push origin "https://${GITLAB_USER_LOGIN}:${GITLAB_TOKEN}@${CI_REPOSITORY_URL#*@}"
