@@ -27,7 +27,6 @@ jobs:
       -
         name: Create local changes
         id: check_changes
-        github_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git add . \
           CHANGES=$(git status --porcelain | wc -l) \
