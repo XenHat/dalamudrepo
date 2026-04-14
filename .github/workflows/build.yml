@@ -21,19 +21,16 @@ jobs:
           persist-credentials: false
           fetch-depth: 0
       -
+        name: Trust all folders
+        run: git config --global --add safe.directory '*'
+      -
         name: Run merge script
         run: bash merge_repos.bash
         shell: bash
       -
-        name: Trust all folders
-        run: git config --global --add safe.directory '*'
-      -
         name: Create local changes
         id: check_changes
-        run: |
-          git add . \
-          CHANGES=$(git status --porcelain | wc -l) \
-          echo "changes=$CHANGES" >> $GITHUB_OUTPUT
+        run: git add .
       -
         name: Commit and push changes
         uses: actions-js/push@master
