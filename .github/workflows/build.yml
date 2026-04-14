@@ -31,8 +31,9 @@ jobs:
         name: Create local changes
         id: check_changes
         run: git add .
-#      -
-#        name: Commit and push changes
-#        uses: actions-js/push@master
-#        with:
-#          github_token: ${{ secrets.REPO_PUSH_TOKEN }}
+      -
+        name: Commit and push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.REPO_PUSH_TOKEN }}
+          message: '[skip ci] chore: autopublish ${date}'
