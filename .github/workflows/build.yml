@@ -1,0 +1,45 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+env:
+  GIT_STRATEGY: clone
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/xenhat/dalamud-repo-image:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "CI Pipeline"
+          git config --global user.email "cipipeline@example.com"
+
+      - name: Run merge script
+        run: bash merge_repos.bash
+
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git add .
+          CHANGES=$(git status --porcelain | wc -l)
+          echo "changes=$CHANGES" >> $GITHUB_OUTPUT
+
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changes > 0
+        run: |
+          git reset --soft HEAD
+          git commit -m "${{ env.COMMIT_MESSAGE }}"
+          git push origin HEAD:main --no-verify
+        env:
+          COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }}

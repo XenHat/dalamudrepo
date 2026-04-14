@@ -1,6 +1,11 @@
 https://aetherment.sevii.dev/plugin
 https://love.puni.sh/ment.json
+https://puni.sh/api/repository/croizat
+https://puni.sh/api/repository/erdelf
+https://puni.sh/api/repository/kawaii
+https://puni.sh/api/repository/vera
 https://puni.sh/api/repository/veyn
+https://puni.sh/api/repository/wah
 https://raw.githubusercontent.com/Aida-Enna/XIVPlugins/refs/heads/main/repo.json
 https://raw.githubusercontent.com/BardToolbox/BardToolbox-Release/master/pluginmaster.json
 https://raw.githubusercontent.com/Chalkos/Marketbuddy/main/repo.json
@@ -13,3 +18,4 @@ https://raw.githubusercontent.com/arcticnw/DalamudPlugins/main/repo.json
 https://raw.githubusercontent.com/marzent/IINACT/main/repo.json
 https://raw.githubusercontent.com/reckhou/DalamudPlugins-Ori/api6/pluginmaster.json
 https://repo.lightless-sync.org/
+https://sync.playersync.io/download/plugin/repo.json
