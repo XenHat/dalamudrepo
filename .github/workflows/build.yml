@@ -1,5 +1,4 @@
 name: Build
-shell: bash
 on:
   push:
     branches:
@@ -27,6 +26,7 @@ jobs:
 
       - name: Run merge script
         run: bash merge_repos.bash
+        shell: bash
 
       - name: Check for changes
         id: check_changes
