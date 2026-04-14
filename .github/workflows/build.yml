@@ -28,6 +28,7 @@ jobs:
         name: Create local changes
         id: check_changes
         run: |
+          git config --global --add safe.directory /__w/dalamudrepo/dalamudrepo \
           git add . \
           CHANGES=$(git status --porcelain | wc -l) \
           echo "changes=$CHANGES" >> $GITHUB_OUTPUT
