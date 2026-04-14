@@ -10,5 +10,6 @@ done <repolist
 echo "Merging all repos"
 jq -n 'reduce inputs as $in (null;
 . + if $in|type == "array" then $in else [$in] end)
-' ./repo.*.tmp.json >repo.json
+' ./repo.*.tmp.json >repo.reduced.json
+jq 'sort_by(.Name)' ./repo.reduced.json >repo.json
 rm repo.*.tmp.json
