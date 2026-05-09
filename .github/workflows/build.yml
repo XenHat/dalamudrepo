@@ -26,6 +26,7 @@ jobs:
       -
         name: Run merge script
         run: bash scripts/merge_repos.bash
+        run: echo "CURRENT_DATE=$(date +"%Y%m%d%H%M%S")" >> $GITHUB_ENV
         shell: bash
       -
         name: Create local changes
@@ -36,4 +37,4 @@ jobs:
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.REPO_PUSH_TOKEN }}
-          message: "[skip ci] chore: autopublish ${date}"
+          message: "[skip ci] chore: autopublish ${CURRENT_DATE}"
