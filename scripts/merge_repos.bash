@@ -6,7 +6,7 @@ while IFS= read -r line; do
 	echo "Downloading $line"
 	wget -q -O - "$line" | jq '.' >repo.${index}.tmp.json
 	((index++))
-done <repolist
+done <assets/repolist
 echo "Merging all repos"
 jq -n 'reduce inputs as $in (null;
 . + if $in|type == "array" then $in else [$in] end)

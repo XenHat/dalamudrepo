@@ -25,7 +25,7 @@ jobs:
         run: git config --global --add safe.directory '*'
       -
         name: Run merge script
-        run: bash merge_repos.bash
+        run: bash scripts/merge_repos.bash
         shell: bash
       -
         name: Create local changes
