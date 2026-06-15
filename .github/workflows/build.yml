@@ -37,6 +37,6 @@ jobs:
           # If there are no changes, skip
           if ! git diff --cached --quiet; then
             git commit -m "[skip ci] chore: autopublish" --amend --no-edit
-            git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@://github.com{{ github.repository }}.git"
+            git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@://github.com${{ github.repository }}.git"
             git push origin main --force-with-lease
           fi
