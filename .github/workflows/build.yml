@@ -20,8 +20,9 @@ jobs:
         name: Checkout code
         uses: actions/checkout@master
         with:
+          token: ${{ secrets.REPO_PUSH_TOKEN }}
           persist-credentials: false
-          fetch-depth: 0
+          fetch-depth: 3
       -
         name: Trust all folders
         run: git config --global --add safe.directory '*'
@@ -39,6 +40,5 @@ jobs:
           # If there are no changes, skip
           if ! git diff --cached --quiet; then
             git commit -m "[skip ci] chore: autopublish" --amend --no-edit
-            git remote set-url origin "https://x-access-token:${MY_ACCESS_TOKEN}@://github.com/${{ github.repository }}.git"
-            git push origin main --force-with-lease
+            git push origin HEAD:${{ github.ref_name }} --force-with-lease
           fi
