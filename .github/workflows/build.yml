@@ -33,12 +33,21 @@ jobs:
         run: bash scripts/merge_repos.bash
         shell: bash
       - name: Commit and push changes
+        env:
+          MY_ACCESS_TOKEN: ${{ secrets.REPO_PUSH_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          printf 'https://x-access-token:%s@github.com\n' "${MY_ACCESS_TOKEN}" >"${HOME}/.git-credentials"
+          chmod 600 "${HOME}/.git-credentials"
+          git config --global credential.helper store
           git add .
           # If there are no changes, skip
           if ! git diff --cached --quiet; then
-            git commit -m "[skip ci] chore: autopublish" --amend --no-edit
+            if git log -1 --format='%s' | grep -q '^\[skip ci\]'; then
+              git commit --amend -m "[skip ci] chore: autopublish"
+            else
+              git commit -m "[skip ci] chore: autopublish"
+            fi
             git push origin HEAD:${{ github.ref_name }} --force-with-lease
           fi
