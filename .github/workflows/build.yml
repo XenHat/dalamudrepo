@@ -27,6 +27,8 @@ jobs:
         run: git config --global --add safe.directory '*'
       -
         name: Run merge script
+        env:
+          MY_ACCESS_TOKEN: ${{ secrets.REPO_PUSH_TOKEN }}
         run: bash scripts/merge_repos.bash
         shell: bash
       - name: Commit and push changes
@@ -37,6 +39,6 @@ jobs:
           # If there are no changes, skip
           if ! git diff --cached --quiet; then
             git commit -m "[skip ci] chore: autopublish" --amend --no-edit
-            git remote set-url origin "https://x-access-token:${PUSH_TOKEN}@://github.com${{ github.repository }}.git"
+            git remote set-url origin "https://x-access-token:${MY_ACCESS_TOKEN}@://github.com/${{ github.repository }}.git"
             git push origin main --force-with-lease
           fi
