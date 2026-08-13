@@ -1,0 +1,55 @@
+name: Build
+on:
+  schedule:
+    - cron: 0 */1 * * *
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  GIT_STRATEGY: clone
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/xenhat/dalamud-repo-image:latest
+    steps:
+      -
+        name: Checkout code
+        uses: actions/checkout@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
+          fetch-depth: 1
+      -
+        name: Trust all folders
+        run: git config --global --add safe.directory '*'
+      -
+        name: Run merge script
+        run: bash scripts/merge_repos.bash
+        shell: bash
+      - 
+        name: Commit and push changes
+        env:
+          MY_ACCESS_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          printf 'https://x-access-token:%s@github.com\n' "${MY_ACCESS_TOKEN}" >"${HOME}/.git-credentials"
+          chmod 600 "${HOME}/.git-credentials"
+          git config --global credential.helper store
+          git add .
+          # If there are no changes, skip
+          if ! git diff --cached --quiet; then
+            if git log -1 --format='%s' | grep -q '^\[skip ci\]'; then
+              git commit --amend -m "[skip ci] chore: autopublish"
+            else
+              git commit -m "[skip ci] chore: autopublish"
+            fi
+            git push origin HEAD:${{ github.ref_name }} --force-with-lease
+          fi
